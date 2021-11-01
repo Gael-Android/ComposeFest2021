@@ -7,20 +7,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
@@ -43,25 +33,47 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BasicsCodelabTheme {
-                Surface(
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting(name = "Android")
-                }
+                MyApp()
             }
         }
     }
 }
 
 @Composable
-private fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+private fun MyApp(names: List<String> = listOf("World", "Compose")) {
+    Column(modifier = Modifier.padding(vertical = 4.dp)) {
+        for (name in names) {
+            Greeting(name = name)
+        }
+    }
 }
 
-@Preview(showBackground = true)
+@Composable
+private fun Greeting(name: String) {
+    Surface(
+        color = MaterialTheme.colors.primary,
+        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+    ) {
+        Row(modifier = Modifier.padding(24.dp)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+            ) {
+                Text(text = "Hello,")
+                Text(text = name)
+            }
+            OutlinedButton(onClick = { /*TODO*/ }) {
+                Text("Show more")
+            }
+        }
+    }
+}
+
+
+@Preview(showBackground = true, widthDp = 320)
 @Composable
 fun DefaultPreview() {
     BasicsCodelabTheme {
-        Greeting("Android")
+        MyApp()
     }
 }
